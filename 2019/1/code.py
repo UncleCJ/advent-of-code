@@ -8,7 +8,11 @@ with open((__file__.rstrip("code.py")+"input.txt"), 'r') as input_file:
 
 
 print("Part One : "+ str(None))
+devide = 3
+round_down = True
+substract = 2
 
+print(input)
 
 
 print("Part Two : "+ str(None))
