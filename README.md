@@ -18,8 +18,11 @@ pip install requests
 ### Running init.py
 To run init.py, follow these steps:
 * Create a new folder.
-* Download init.py and put it into the folder.
-* Open init.py in a text editor and put your session into **USER_SESSION_ID** (see below).
+* Download `init.py` and `.gitignore` and put it into the folder.
+* Create a file named `sesion_cookie.py` in your folder (where `init.py` and `.gitignore` is in). Coipy the following code into the file and provide your session_cookie_value.
+  ```python
+  cookie_value = "" # Get your session Cookie value by inspecting the session cookie content in your web browser while connected to adventofcode and paste it here as plain text in between the ".
+  ```
 * Change other user parameters in the init.py as desired (see below).
 * Change the date of the last advent of code year and day if needed.
 * Run init.py from within the folder with
@@ -31,7 +34,6 @@ The init.py parameters come as follow:
 ```python
 # USER SPECIFIC PARAMETERS
 base_pos = "./"            # Folders will be created here. If you want to make a parent folder, change this to ex "./adventofcode/"
-USER_SESSION_ID = ""       # Get your session by inspecting the session cookie content in your web browser while connected to adventofcode and paste it here as plain text in between the ". Leave at is to not download inputs.
 DOWNLOAD_STATEMENTS = True # Set to false to not download statements. Note that only part one is downloaded (since you need to complete it to access part two)
 DOWNLOAD_INPUTS = True     # Set to false to not download inputs. Note that if the USER_SESSION_ID is wrong or left empty, inputs will not be downloaded.
 MAKE_CODE_TEMPLATE = True  # Set to false to not make code templates. Note that even if OVERWRITE is set to True, it will never overwrite codes.
