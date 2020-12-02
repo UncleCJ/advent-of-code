@@ -1,6 +1,6 @@
 # adventofcode
 
-This repo contains my personnal answers to all of the problems proposed by [AdventOfCode](https://adventofcode.com/).
+This repo contains my personal answers to all of the problems proposed by [AdventOfCode](https://adventofcode.com/).
 Most of it is missing and will be added as I complete them. You can check the commits or the list below to know which has been completed. I also propose to viewers to use init.py to copy this repo hierarchy and get down to coding themselves.
 
 ## Copying the template
