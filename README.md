@@ -66,16 +66,5 @@ python code.py
 ```
 Please do not rename the *code.py* nor the *input.txt* files, as both their names are hardcoded in the solutions.
 
-## Advent of code problems solved
-* 2015
-    * /
-* 2016
-    * /
-* 2017
-    * Days 1 - 17
-	* Day 19
-* 2018
-    * Days 1 - 8
-
 ## Contributing
 Any constructive pull request directly correcting errors or improving the code is welcomed.
