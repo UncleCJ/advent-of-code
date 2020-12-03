@@ -2,7 +2,7 @@
 # Author = BNAndras
 # Date = December 2020
 
-with open((__file__.rstrip("code.py")+"input.txt"), 'r') as input_file:
+with open((__file__.rstrip("puzzle.py")+"input.txt"), 'r') as input_file:
     lines = input_file.read().splitlines()
 
 counter = 0
@@ -15,7 +15,7 @@ for line in lines:
     if (low <= password.count(character)) & (password.count(character) <= high): counter += 1
 
 
-print("Part One : "+ str(counter))
+print("Part One : {}".format(counter))
 
 counter = 0
 for line in lines:
@@ -24,4 +24,4 @@ for line in lines:
     character = character[0]
     if (password[firstPosition - 1] == character) | (password[secondPosition - 1] == character): counter += 1
 
-print("Part Two : "+ str(counter))
+print("Part Two : {}".format(counter))

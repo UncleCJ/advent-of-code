@@ -2,7 +2,8 @@
 # Author = BNAndras
 # Date = December 2020
 from itertools import combinations
-with open((__file__.rstrip("code.py")+"input.txt"), 'r') as input_file:
+
+with open((__file__.rstrip("puzzle.py")+"input.txt"), 'r') as input_file:
     input = input_file.read().splitlines()
     data = [int(row.rstrip()) for row in input if row.rstrip()]
 
