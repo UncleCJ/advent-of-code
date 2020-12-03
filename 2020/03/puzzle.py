@@ -21,12 +21,12 @@ def countEncounteredTreesAtSlopeRepresentedAs(deltaSlope):
         )
     return treesEncountered
 
-Slope = namedtuple('Slope', 'deltaX deltaY')
-treesSlope3and1 = countEncounteredTreesAtSlopeRepresentedAs( Slope(3, 1) )
+Slope = namedtuple('Slope', 'deltaY deltaX')
+treesSlope3and1 = countEncounteredTreesAtSlopeRepresentedAs( Slope(1, 3) )
 print("Part One : {}".format(treesSlope3and1))
 
 allTreesEncountered = treesSlope3and1
-remainingSlopes = [Slope(1, 1), Slope(5, 1), Slope(7, 1), Slope(1, 2)]
+remainingSlopes = [Slope(1, 1), Slope(1, 5), Slope(1, 7), Slope(2,1)]
 
 for slope in remainingSlopes:
     allTreesEncountered *= countEncounteredTreesAtSlopeRepresentedAs(slope)
