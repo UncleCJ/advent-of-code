@@ -29,7 +29,9 @@ counterValidPassports = 0
 passportFields = []
 for line in lines:
     if (line == "" and set(passportFields) == requiredFields): counterValidPassports += 1
-    if line == "": passportFields = []
+    if line == "":
+        passportFields = []
+        continue
     segments = [x for x in line.split(" ") if x]
     for segment in segments:
         fieldName, valueToValidate = segment.split(":")
