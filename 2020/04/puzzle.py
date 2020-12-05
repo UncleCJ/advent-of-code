@@ -50,9 +50,9 @@ for line in lines:
             unit = valueToValidate[-2:]
             try:
                 height = int(valueToValidate[:-2])
-                if unit == "cm" & ((150 <= height) and (height <= 193)):
+                if unit == "cm" and ((150 <= height) and (height <= 193)):
                     validationToggle = True
-                elif unit == "in" & ((59 <= height) and (height <= 76)):
+                elif unit == "in" and ((59 <= height) and (height <= 76)):
                     validationToggle = True
             except:
                 pass
