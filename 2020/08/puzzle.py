@@ -17,7 +17,6 @@ def RunThroughBootCodeAndReturnAccumulatorP1(lines):
         currentLine = lines[currentPosition % len(lines)]
         instruction, argument = currentLine.split()
         argument = int(argument)
-
         if instruction == 'acc':
             accumulator += argument
         elif instruction == 'jmp':
@@ -37,7 +36,6 @@ def RunThroughBootCodeAndReturnAccumulatorP2(lines):
         currentLine = lines[currentPosition % len(lines)]
         instruction, argument = currentLine.split()
         argument = int(argument)
-
         if instruction == 'acc':
             accumulator += argument
         elif instruction == 'jmp':
