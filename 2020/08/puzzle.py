@@ -13,17 +13,7 @@ def RunThroughBootCodeAndReturnAccumulatorP1(lines):
     currentPosition = 0
     seenPositions = set()
     while currentPosition not in seenPositions:
-        seenPositions.add(currentPosition)
-        currentLine = lines[currentPosition % len(lines)]
-        instruction, argument = currentLine.split()
-        argument = int(argument)
-        if instruction == 'acc':
-            accumulator += argument
-        elif instruction == 'jmp':
-            currentPosition += argument - 1
-        elif instruction == "nop":
-            pass
-        currentPosition += 1
+        accumulator, currentPosition = RunThroughPositions(accumulator, currentPosition, lines, seenPositions)
     return accumulator
 
 def RunThroughBootCodeAndReturnAccumulatorP2(lines):
@@ -32,18 +22,24 @@ def RunThroughBootCodeAndReturnAccumulatorP2(lines):
     seenPositions = set()
     while currentPosition not in seenPositions:
         if currentPosition >= len(lines): return accumulator
-        seenPositions.add(currentPosition)
-        currentLine = lines[currentPosition % len(lines)]
-        instruction, argument = currentLine.split()
-        argument = int(argument)
-        if instruction == 'acc':
-            accumulator += argument
-        elif instruction == 'jmp':
-            currentPosition += argument - 1
-        elif instruction == "nop":
-            pass
-        currentPosition += 1
+        accumulator, currentPosition = RunThroughPositions(accumulator, currentPosition, lines, seenPositions)
     return 0
+
+
+def RunThroughPositions(accumulator, currentPosition, lines, seenPositions):
+    seenPositions.add(currentPosition)
+    currentLine = lines[currentPosition % len(lines)]
+    instruction, argument = currentLine.split()
+    argument = int(argument)
+    if instruction == 'acc':
+        accumulator += argument
+    elif instruction == 'jmp':
+        currentPosition += argument - 1
+    elif instruction == "nop":
+        pass
+    currentPosition += 1
+    return accumulator, currentPosition
+
 
 accumulator = RunThroughBootCodeAndReturnAccumulatorP1(lines)
 print("Part One : {}".format(accumulator))
