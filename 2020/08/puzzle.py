@@ -46,10 +46,7 @@ def RunThroughBootCodeAndReturnAccumulatorP2(lines):
     return 0
 
 accumulator = RunThroughBootCodeAndReturnAccumulatorP1(lines)
-
 print("Part One : {}".format(accumulator))
-
-
 
 for i in range(len(lines)):
     copiedLines = deepcopy(lines)
