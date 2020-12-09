@@ -24,14 +24,14 @@ def CountUpChildrenInside(bagName):
 
 
 childrenOf = defaultdict(dict)
-parentsOf = defaultdict(set)
+parentsOf = defaultdict(list)
 
 for line in lines:
     parentName = search(r"^[\w]+\s+[\w]+", line).group()
     bagContents = findall(r"(\d+)[\s](\w+\s\w+)",line)
     for count, childName in bagContents:
         childrenOf[parentName][childName] = int(count)
-        parentsOf[childName].add(parentName)
+        parentsOf[childName].append(parentName)
 
 print(
     "Part One : {}".format
