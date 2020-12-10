@@ -3,7 +3,7 @@
 # Date = December 2020
 
 #from itertools import combinations
-#from collections import defaultdict
+#from collections import Counter, defaultdict
 
 with open((__file__.rstrip("puzzle.py")+"input.txt"), 'r') as input_file:
     inp = input_file.read()
@@ -15,7 +15,7 @@ with open((__file__.rstrip("puzzle.py")+"input.txt"), 'r') as input_file:
 differencesOfOneJolt = 0
 differencesOfThreeJolts = 0
 
-#differencesInJoltage = [(adapter2 - adapter1) for (adapter1, adapter2) in combinations(adapters, 2)]
+#differencesInJoltage = Counter([(adapter2 - adapter1) for (adapter1, adapter2) in combinations(adapters, 2)])
 #differencesOfOneJolt = differencesInJoltage[1]
 #differencesOfThreeJolts = differencesInJoltage[3]
 for i in range(len(adapters) - 1):
