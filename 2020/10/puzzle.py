@@ -34,4 +34,4 @@ for firstAdapterIndex in range(1, len(adapters)): # skip above cached
         if adapters[firstAdapterIndex] - adapters[secondAdapterIndex] <= 3:
             possibleArrangements[firstAdapterIndex] += possibleArrangements[secondAdapterIndex]
 
-print("Part Two : {}".format(possibleArrangements[-1]))
+print("Part Two : {}".format(max(possibleArrangements)))
