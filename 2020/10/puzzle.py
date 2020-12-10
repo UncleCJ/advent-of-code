@@ -30,7 +30,7 @@ print("Part One : {}".format(differencesOfOneJolt * differencesOfThreeJolts))
 possibleArrangements = [0] * len(adapters)
 possibleArrangements[0] = 1 # Represents cached arrangement from above
 for firstAdapterIndex in range(1, len(adapters)): # skip above cached
-    for secondAdapterIndex in range(0, firstAdapterIndex):
+    for secondAdapterIndex in range(firstAdapterIndex):
         if adapters[firstAdapterIndex] - adapters[secondAdapterIndex] <= 3:
             possibleArrangements[firstAdapterIndex] += possibleArrangements[secondAdapterIndex]
 
