@@ -15,9 +15,6 @@ with open((__file__.rstrip("puzzle.py")+"input.txt"), 'r') as input_file:
 differencesOfOneJolt = 0
 differencesOfThreeJolts = 0
 
-#differencesInJoltage = Counter([(adapter2 - adapter1) for (adapter1, adapter2) in combinations(adapters, 2)])
-#differencesOfOneJolt = differencesInJoltage[1]
-#differencesOfThreeJolts = differencesInJoltage[3]
 for i in range(len(adapters) - 1):
     differenceInAdjacentAdapters = adapters[i+1] - adapters[i]
     if differenceInAdjacentAdapters == 1: differencesOfOneJolt += 1
@@ -26,12 +23,10 @@ for i in range(len(adapters) - 1):
 
 print("Part One : {}".format(differencesOfOneJolt * differencesOfThreeJolts))
 
-#possibleArrangements = defaultdict(int)
 possibleArrangements = [0] * len(adapters)
-possibleArrangements[0] = 1 # Represents cached arrangement from above
-for firstAdapterIndex in range(1, len(adapters)): # skip above cached
-    for secondAdapterIndex in range(firstAdapterIndex):
-        if adapters[firstAdapterIndex] - adapters[secondAdapterIndex] <= 3:
-            possibleArrangements[firstAdapterIndex] += possibleArrangements[secondAdapterIndex]
+possibleArrangements[0] = 1 # Represents no adapter, device directly connected
+for firstAdapterIndex in range(1, len(adapters)):
+    for secondAdapterIndex in range(firstAdapterIndex - 3, first):
+              possibleArrangements[firstAdapterIndex] += possibleArrangements[secondAdapterIndex]
 
 print("Part Two : {}".format(max(possibleArrangements)))
