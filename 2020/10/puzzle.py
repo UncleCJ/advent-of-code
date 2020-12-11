@@ -26,7 +26,7 @@ print("Part One : {}".format(differencesOfOneJolt * differencesOfThreeJolts))
 possibleArrangements = [0] * len(adapters)
 possibleArrangements[0] = 1 # Represents no adapter, device directly connected
 for firstAdapterIndex in range(1, len(adapters)):
-    for secondAdapterIndex in range(firstAdapterIndex - 3, first):
+    for secondAdapterIndex in range(firstAdapterIndex - 3, firstAdapterIndex):
               possibleArrangements[firstAdapterIndex] += possibleArrangements[secondAdapterIndex]
 
 print("Part Two : {}".format(max(possibleArrangements)))
