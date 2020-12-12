@@ -61,4 +61,4 @@ for movement in movements:
             currentWaypointPosition = Position(X = -currentWaypointPosition.Y, Y = currentWaypointPosition.X)
 
 manhattanDistanceForShipPart2 = abs(currentShipPosition.X) + abs(currentShipPosition.Y)
-print("Part Two : {}".format(manhattanDistanceForShipPart2)) #34198 too high
+print("Part Two : {}".format(manhattanDistanceForShipPart2))
