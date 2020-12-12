@@ -54,12 +54,11 @@ for movement in movements:
     elif movement.direction == "R":
         while movement.amount:
             movement = Movement(movement.direction, movement.amount - 90)
-            currentWaypointPosition = Position(X = -currentWaypointPosition.Y, Y = currentWaypointPosition.X)
+            currentWaypointPosition = Position(X = currentWaypointPosition.Y, Y = -currentWaypointPosition.X)
     elif movement.direction == "L":
         while movement.amount:
             movement = Movement(movement.direction, movement.amount - 90)
-            currentWaypointPosition = Position(X = currentWaypointPosition.Y, Y = -currentWaypointPosition.X)
-
+            currentWaypointPosition = Position(X = -currentWaypointPosition.Y, Y = currentWaypointPosition.X)
 
 manhattanDistanceForShipPart2 = abs(currentShipPosition.X) + abs(currentShipPosition.Y)
 print("Part Two : {}".format(manhattanDistanceForShipPart2)) #34198 too high
