@@ -15,11 +15,11 @@ currentShipPosition = Position(0, 0)
 currentGeographicDirection = 90 # east
 for movement in movements:
     if movement.direction == "F":
-        turnDegrees = currentGeographicDirection % 360
-        if turnDegrees == 0: movement = Movement("N", movement.amount)
-        elif turnDegrees == 90: movement = Movement("E", movement.amount)
-        elif turnDegrees == 180: movement = Movement("S", movement.amount)
-        elif turnDegrees == 270: movement = Movement("W", movement.amount)
+        currentGeographicDirection = currentGeographicDirection % 360
+        if currentGeographicDirection == 0: movement = Movement("N", movement.amount)
+        elif currentGeographicDirection == 90: movement = Movement("E", movement.amount)
+        elif currentGeographicDirection == 180: movement = Movement("S", movement.amount)
+        elif currentGeographicDirection == 270: movement = Movement("W", movement.amount)
     if movement.direction == "N":
         currentShipPosition = Position(currentShipPosition.X, currentShipPosition.Y + movement.amount)
     elif movement.direction == "S":
