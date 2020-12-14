@@ -67,15 +67,15 @@ def count_available_neighboring_seats(copy_of_current_state, target_seat_positio
             target_seat_position.X + relative_offset.X, target_seat_position.Y + relative_offset.Y
         )
         if part_two_flag:
-            current_radius_around_neighbor_seat = 0
+            current_ring_of_neighboring_seats = 1
             while copy_of_current_state.get(current_neighbor_position) == symbol_for_unavailable_seat:
-                current_radius_around_neighbor_seat += 1
                 current_neighbor_position = copy_of_current_state.get(
                     Position(
-                        current_neighbor_position.X + (relative_offset.X * current_radius_around_neighbor_seat),
-                        current_neighbor_position.Y + (relative_offset.Y * current_radius_around_neighbor_seat),
+                        current_neighbor_position.X + (relative_offset.X * current_ring_of_neighboring_seats),
+                        current_neighbor_position.Y + (relative_offset.Y * current_ring_of_neighboring_seats),
                     )
                 )
+                current_ring_of_neighboring_seats += 1
             if copy_of_current_state.get(current_neighbor_position) == symbol_for_occupied_seat:
                 count_of_occupied_neighbors += 1
         elif copy_of_current_state.get(current_neighbor_position, symbol_for_available_seat) == symbol_for_occupied_seat:
