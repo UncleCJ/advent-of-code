@@ -17,4 +17,4 @@ for busId in busIds:
         minTimeWaitedForAnyBus = timeWaitedForThisBus
         earliestBusId = busId
 
-print("Part One : {}".format(earliestBusId * minTimeWaitedForAnyBus))
+print(f"Part One : {earliestBusId * minTimeWaitedForAnyBus}")
