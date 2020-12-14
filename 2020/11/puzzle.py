@@ -5,122 +5,106 @@
 from collections import namedtuple
 from copy import deepcopy
 
-def RunThroughSeatingChartForPart1(currentStateOfChart):
-    workingCopyOfChart = deepcopy(currentStateOfChart)
 
-    for currentPosition in workingCopyOfChart:
-        if currentPosition == symbolSeatUnavailable: continue
-        countOfOccupiedNeighbors = CountAvailableNeighboringSeatsForPart1(currentStateOfChart, currentPosition)
-        if workingCopyOfChart[currentPosition] == symbolSeatAvailable and not countOfOccupiedNeighbors:
-            workingCopyOfChart[currentPosition] = symbolSeatOccupied
-        elif (workingCopyOfChart[currentPosition] == symbolSeatOccupied
-                and countOfOccupiedNeighbors >= 4):
-            workingCopyOfChart[currentPosition] = symbolSeatAvailable
+def initialize_seating_chart(data):
+    initial_state = dict()
 
-    return workingCopyOfChart
+    for row_index, row_value in enumerate(data):
+        for column_index, column_value in enumerate(row_value):
+            initial_state[Position(column_index, row_index)] = column_value
 
-def RunThroughSeatingChartForPart2(currentStateOfChart):
-    workingCopyOfChart = deepcopy(currentStateOfChart)
+    return initial_state
 
-    for currentPosition in workingCopyOfChart:
-        if currentPosition == symbolSeatUnavailable: continue
-        countOfOccupiedNeighbors = CountAvailableNeighboringSeatsForPart2(currentStateOfChart, currentPosition)
-        if workingCopyOfChart[currentPosition] == symbolSeatAvailable and not countOfOccupiedNeighbors:
-            workingCopyOfChart[currentPosition] = symbolSeatOccupied
-        elif (workingCopyOfChart[currentPosition] == symbolSeatOccupied
-                and countOfOccupiedNeighbors >= 5):
-            workingCopyOfChart[currentPosition] = symbolSeatAvailable
 
-    return workingCopyOfChart
+def cycle_seating_chart_until_stable(current_state_of_seating_chart):
+    current_state_of_seating_chart = deepcopy(current_state_of_seating_chart)
+    next_state_of_seating_chart = (
+        run_through_seating_chart(current_state_of_seating_chart)
+    )
 
-def CountAvailableNeighboringSeatsForPart1(currentStateOfChart, seatPosition):
+    while next_state_of_seating_chart != current_state_of_seating_chart:
+        current_state_of_seating_chart = next_state_of_seating_chart
+        next_state_of_seating_chart = (
+            run_through_seating_chart(current_state_of_seating_chart)
+        )
 
-    relativeOffsetsForNeighbors = [
-        Position(X=-1, Y=-1),
-        Position(X=-1, Y=0),
-        Position(X=-1, Y=1),
-        Position(X=0, Y=-1),
-        Position(X=0, Y=1),
-        Position(X=1, Y=-1),
-        Position(X=1, Y=0),
-        Position(X=1, Y=1),
+    return current_state_of_seating_chart
+
+
+def run_through_seating_chart(incoming_state_of_chart):
+    global part_two_flag
+
+    copy_of_current_state = deepcopy(incoming_state_of_chart)
+    threshold_for_occupied_neighbors = 4 if not part_two_flag else 5
+
+    for position_in_current_state in copy_of_current_state:
+        if position_in_current_state == symbol_for_unavailable_seat:
+            continue
+        count_of_occupied_neighbors = (
+            count_available_neighboring_seats(incoming_state_of_chart, position_in_current_state)
+        )
+        if (copy_of_current_state[position_in_current_state] == symbol_for_available_seat
+                and not count_of_occupied_neighbors):
+            copy_of_current_state[position_in_current_state] = symbol_for_occupied_seat
+        elif (copy_of_current_state[position_in_current_state] == symbol_for_occupied_seat
+              and count_of_occupied_neighbors >= threshold_for_occupied_neighbors):
+            copy_of_current_state[position_in_current_state] = symbol_for_available_seat
+
+    return copy_of_current_state
+
+
+def count_available_neighboring_seats(copy_of_current_state, target_seat_position):
+    global part_two_flag
+
+    relative_offsets_for_neighbors = [
+        Position(X=0, Y=-1), Position(X=-1, Y=-1), Position(X=-1, Y=0), Position(X=-1, Y=1),
+        Position(X=0, Y=1), Position(X=1, Y=1), Position(X=1, Y=0), Position(X=1, Y=-1),
     ]
 
-    countOfOccupiedNeighbors = 0
-    for relativeOffset in relativeOffsetsForNeighbors:
-        currentNeighborPosition = Position(seatPosition.X + relativeOffset.X, seatPosition.Y + relativeOffset.Y)
-        if currentStateOfChart.get(currentNeighborPosition, symbolSeatAvailable) == symbolSeatOccupied:
-            countOfOccupiedNeighbors += 1
-
-    return countOfOccupiedNeighbors
-
-def CountAvailableNeighboringSeatsForPart2(currentStateOfChart, seatPosition):
-
-    relativeOffsetsForNeighbors = [
-        Position(X=-1, Y=-1),
-        Position(X=-1, Y=0),
-        Position(X=-1, Y=1),
-        Position(X=0, Y=-1),
-        Position(X=0, Y=1),
-        Position(X=1, Y=-1),
-        Position(X=1, Y=0),
-        Position(X=1, Y=1),
-    ]
-
-    countOfOccupiedNeighbors = 0
-    for relativeOffset in relativeOffsetsForNeighbors:
-        currentNeighborPosition = Position(seatPosition.X + relativeOffset.X, seatPosition.Y + relativeOffset.Y)
-        currentRadius = 1
-        while currentStateOfChart.get(currentNeighborPosition) == symbolSeatUnavailable:
-            currentNeighborPosition = currentStateOfChart.get(
-                Position(
-                    currentNeighborPosition.X + (relativeOffset.X * currentRadius),
-                    currentNeighborPosition.Y + (relativeOffset.Y * currentRadius),
+    count_of_occupied_neighbors = 0
+    for relative_offset in relative_offsets_for_neighbors:
+        current_neighbor_position = Position(
+            target_seat_position.X + relative_offset.X, target_seat_position.Y + relative_offset.Y
+        )
+        if part_two_flag:
+            current_radius_around_neighbor_seat = 0
+            while copy_of_current_state.get(current_neighbor_position) == symbol_for_unavailable_seat:
+                current_radius_around_neighbor_seat += 1
+                current_neighbor_position = copy_of_current_state.get(
+                    Position(
+                        current_neighbor_position.X + (relative_offset.X * current_radius_around_neighbor_seat),
+                        current_neighbor_position.Y + (relative_offset.Y * current_radius_around_neighbor_seat),
+                    )
                 )
-            )
-            currentRadius += 1
-        if currentStateOfChart.get(currentNeighborPosition) == symbolSeatOccupied: countOfOccupiedNeighbors += 1
+            if copy_of_current_state.get(current_neighbor_position) == symbol_for_occupied_seat:
+                count_of_occupied_neighbors += 1
+        elif copy_of_current_state.get(current_neighbor_position, symbol_for_available_seat) == symbol_for_occupied_seat:
+            count_of_occupied_neighbors += 1
 
-    return countOfOccupiedNeighbors
+    return count_of_occupied_neighbors
 
-with open((__file__.rstrip("puzzle.py")+"debuginput.txt"), 'r') as input_file:
+
+with open((__file__.rstrip("puzzle.py") + "input.txt"), 'r') as input_file:
     inp = input_file.read()
     lines = inp.splitlines()
 
-
-symbolSeatUnavailable = "."
-symbolSeatAvailable = "L"
-symbolSeatOccupied = "#"
-
+symbol_for_unavailable_seat = "."
+symbol_for_available_seat = "L"
+symbol_for_occupied_seat = "#"
 Position = namedtuple("Position", "X Y")
 
-# initialStateOfChart = dict()
-# for indexRow, row in enumerate(lines): # initial state
-#     for indexColumn, column in enumerate(row):
-#         currentPosition = Position(indexColumn, indexRow)
-#         initialStateOfChart[currentPosition] = column
-#
-# currentStateOfChart = deepcopy(initialStateOfChart)
-# nextStateOfChart = RunThroughSeatingChartForPart1(currentStateOfChart)
-# while nextStateOfChart != currentStateOfChart:
-#     currentStateOfChart = nextStateOfChart
-#     nextStateOfChart = RunThroughSeatingChartForPart1(nextStateOfChart)
-#
-#
-# countOfOccupiedSeatsPart1 = sum(1 for seat in currentStateOfChart.values() if seat == symbolSeatOccupied)
-# print("Part One : {}".format(countOfOccupiedSeatsPart1))
+initial_state_of_seating_chart = initialize_seating_chart(lines)
 
-initialStateOfChart = dict()
-for indexRow, row in enumerate(lines): # initial state
-    for indexColumn, column in enumerate(row):
-        currentPosition = Position(indexColumn, indexRow)
-        initialStateOfChart[currentPosition] = column
+part_two_flag = False
+stable_seating_chart_for_part1 = cycle_seating_chart_until_stable(initial_state_of_seating_chart)
+count_of_occupied_seats_for_part1 = sum(
+    1 for seat_position in stable_seating_chart_for_part1.values() if seat_position == symbol_for_occupied_seat
+)
+print("Part One : {}".format(count_of_occupied_seats_for_part1))
 
-currentStateOfChart = deepcopy(initialStateOfChart)
-nextStateOfChart = RunThroughSeatingChartForPart2(currentStateOfChart)
-while nextStateOfChart != currentStateOfChart:
-    currentStateOfChart = nextStateOfChart
-    nextStateOfChart = RunThroughSeatingChartForPart2(nextStateOfChart)
-
-countOfOccupiedSeatsPart2 = sum(1 for seat in currentStateOfChart.values() if seat == symbolSeatOccupied)
-print("Part Two : {}".format(countOfOccupiedSeatsPart2))
+part_two_flag = not part_two_flag
+stable_seating_chart_for_part2 = cycle_seating_chart_until_stable(initial_state_of_seating_chart)
+count_of_occupied_seats_for_part2 = sum(
+    1 for seat_position in stable_seating_chart_for_part2.values() if seat_position == symbol_for_occupied_seat
+)
+print("Part Two : {}".format(count_of_occupied_seats_for_part2))
