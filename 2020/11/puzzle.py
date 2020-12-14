@@ -84,7 +84,7 @@ def count_available_neighboring_seats(copy_of_current_state, target_seat_positio
     return count_of_occupied_neighbors
 
 
-with open((__file__.rstrip("puzzle.py") + "input.txt"), 'r') as input_file:
+with open((__file__.rstrip("puzzle.py") + "debuginput.txt"), 'r') as input_file:
     inp = input_file.read()
     lines = inp.splitlines()
 
