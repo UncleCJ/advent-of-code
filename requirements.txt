@@ -1,0 +1,6 @@
+multiset
+networkx
+numpy
+pretty_errors
+pyperclip
+requests
