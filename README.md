@@ -8,6 +8,31 @@ Note that [mybinder hardly work with GitHub](https://mybinder.readthedocs.io/en/
 
 Note that I do things like this repository more than I code - [professionally](https://www.linkedin.com/in/carljohan) I want to be a '[Developer Experience Manager](https://twitter.com/annegentle/status/1326389253752975361)'. My Python solutions (in [the branch 'cj'](https://github.com/UncleCJ/advent-of-code/tree/cj)) are notoriously naive but a way for me to learn, and I look at the [solution megathreads on reddit](https://www.reddit.com/r/adventofcode/?f=flair_name%3A%22SOLUTION%20MEGATHREAD%22) for inspiration.
 
+## Changelog
+### 2020-01-16
+
+Finished AoC 2020! Now I can get on with the even more fun and playful work, such as:
+
+* Make this repository more presentable and useful as an AoC sandbox
+* Study, discuss, refer to all the other great participants' solutions and improve my own accordingly
+* Solve the problems from previous years
+
+### 2020-12-11
+
+Add flake8 style checking
+
+### 2020-12-08
+
+Speed up MyBinder launching by pre-building docker images using [.github/workflows/binder.yaml] *(could provide a reference on this eventually)*. It was convenient when fiddling on code from the corporate computer, but otherwise I've become well acquainted with Jupyter in VS Code.
+
+### 2020-12-07
+
+Learnt that [Eric Wastl doesn't want the community to redistribute](https://www.reddit.com/r/adventofcode/comments/k4e4lm/2020_day_1_solutions/geykew3/?utm_source=reddit&utm_medium=web2x&context=3) problems or input data - so stopped doing so, will take out what I already put in and aim for a programmatic solution which will only re-display the problems from the original site
+
+### 2020-12-03
+
+Created this repository and started participating in Advent of Code
+
 ## Contribute
 
 Contributions are always welcome! I don't have any guidelines, but get in touch and/or send me a pull request and we can look at it.
