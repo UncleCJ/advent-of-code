@@ -1,5 +1,6 @@
 import os
 import sys
+import re
 
 try:
     import requests
@@ -54,7 +55,7 @@ def which_day():
         return None
 
 
-def download_helper(url, USER_SESSION_ID, USER_AGENT):
+def download_helper(url: str, USER_SESSION_ID: str, USER_AGENT: str) -> str:
     # print(f'download_helper({url}, {USER_SESSION_ID}, {USER_AGENT})')
     try:
         with requests.get(url=url,
@@ -72,49 +73,43 @@ def download_helper(url, USER_SESSION_ID, USER_AGENT):
         return None
 
 
-def download(year, day,
-             USER_SESSION_ID='',
-             USER_AGENT='adventofcode_notebook_helper',
-             baseurl='https://adventofcode.com/'):
-    output = dict()
+def download_aoc_statement(year: int, day: int,
+                           USER_SESSION_ID='',
+                           USER_AGENT='adventofcode_notebook_helper',
+                           baseurl='https://adventofcode.com/') -> str:
 
-    # Download any problem statements and footers we can
     html = download_helper(baseurl + str(year) + '/day/' + str(day),
                            USER_SESSION_ID, USER_AGENT)
-    if html:
-        p1_start = html.find('<article')
-        # str.find returns -1 if not found, so this arithmetic is sloppy
-        p1_end = html.find('</article>') + len('</article>')
-        p1_footer_start = p1_end + 1
-        bottom_end = html.find('</main>', p1_footer_start) - 1
+    if not html:
+        return None
 
-        output['part1'] = html[p1_start:p1_end]
+    statement_pattern = '''
+<article.*?>(?P<part1>.+?)</article>      # The contents of any first <article> is part1
+(?P<part1_footer>.+?)                     # Then, depending on whether there is a second <article>, 
+                                          # part1_footer is from </article> to it, or until </main>
+(
+    <article.*?>(?P<part2>.+?)</article>  # Same as before, though optional, match part2
+    (?P<part2_footer>.+?)                 # and part2_footer
+)?
+</main>
+'''
+    matches = re.search(statement_pattern,
+                        html,
+                        flags=re.MULTILINE|re.DOTALL|re.VERBOSE)
+    
+    if not matches:
+        return None
+    
+    output = matches.groupdict()
 
-        if USER_SESSION_ID == '':
-            p1_footer_end = bottom_end
-        else:
-            p2_start = html.find('<article', p1_footer_start)
-            # str.find returns -1 if not found, so this arithmetic is sloppy
-            p2_end = html.find('</article>', p1_footer_start) \
-                + len('</article>')
-            if not p2_start:
-                p1_footer_end = bottom_end
-            else:
-                p1_footer_end = p2_start - 1
-                p2_footer_end = bottom_end
-
-                p2_footer_start = p2_end + 1
-                output['part2'] = html[p2_start:p2_end]
-                output['part2_footer'] = html[p2_footer_start:p2_footer_end]
-        output['part1_footer'] = html[p1_footer_start:p1_footer_end]
-
-    # Download the input data if we can
-    if USER_SESSION_ID != '':
-        input = download_helper(baseurl + str(year) + '/day/'
-                                + str(day) + '/input',
-                                USER_SESSION_ID, USER_AGENT)
-        if input:
-            output['input'] = input.rstrip('\n')
+    if USER_SESSION_ID == '':
+        return output
+    
+    input = download_helper(baseurl + str(year) + '/day/'
+                            + str(day) + '/input',
+                            USER_SESSION_ID, USER_AGENT)
+    if input:
+        output['input'] = input.rstrip('\n')
 
     return output
 
@@ -134,6 +129,4 @@ def refresh():
     if 'USER_SESSION_ID' in PROPERTIES.keys():
         USER_SESSION_ID = PROPERTIES['USER_SESSION_ID']
 
-    # print('USER_SESSION_ID: ' + USER_SESSION_ID)
-
-    return download(year, day, USER_SESSION_ID=USER_SESSION_ID)
+    return download_aoc_statement(year, day, USER_SESSION_ID=USER_SESSION_ID)
