@@ -1,0 +1,7 @@
+ipykernel>=6.4.1
+matplotlib>=3.4.3
+pandas>=1.3.4
+numpy==1.21.4
+requests==2.26.0
+pycodestyle==2.7.0
+pycodestyle_magic==0.5
