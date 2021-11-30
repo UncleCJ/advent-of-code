@@ -7,7 +7,6 @@
 
 # USER SPECIFIC PARAMETERS
 base_pos = "./"            # Folders will be created here. If you want to make a parent folder, change this to ex "./adventofcode/"
-USER_SESSION_ID = ""       # Get your session by inspecting the session cookie content in your web browser while connected to adventofcode and paste it here as plain text in between the ". Leave at is to not download inputs.
 DOWNLOAD_STATEMENTS = True # Set to false to not download statements. Note that only part one is downloaded (since you need to complete it to access part two)
 DOWNLOAD_INPUTS = True     # Set to false to not download inputs. Note that if the USER_SESSION_ID is wrong or left empty, inputs will not be downloaded.
 MAKE_CODE_TEMPLATE = True  # Set to false to not make code templates. Note that even if OVERWRITE is set to True, it will never overwrite codes.
@@ -20,7 +19,7 @@ date = "December 2021"               # Date automatically put in the code templa
 starting_advent_of_code_year = 2021  # You can go as early as 2015.
 last_advent_of_code_year = 2021      # The setup will download all advent of code data up until that date included
 starting_advent_of_code_day = 1      # You can go as early as 1 and as late as 25
-last_advent_of_code_day = 25         # If the year isn't finished, the setup will download days up until that day included for the last year
+last_advent_of_code_day = 1          # If the year isn't finished, the setup will download days up until that day included for the last year
 
 # Imports
 import os
@@ -37,7 +36,18 @@ days = range(1,26)
 link = "https://adventofcode.com/" # ex use : https://adventofcode.com/2017/day/19/input
 USER_AGENT = "adventofcode_working_directories_creator"
 
-print("Setup will download data and create working directories and files for adventofcode.")
+USER_SESSION_ID = ""
+if os.path.exists("session.txt"):
+    with open("session.txt", "r") as f:
+        USER_SESSION_ID = f.read().strip()
+else:
+    print("session.txt does not exist, skipping input download...")
+
+if USER_SESSION_ID == "":
+    print("Setup create working directories and files for adventofcode.")
+else:
+    print("Setup will download data and create working directories and files for adventofcode.")
+
 if not os.path.exists(base_pos):
     os.mkdir(base_pos)
 for y in years:

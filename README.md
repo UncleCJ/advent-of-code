@@ -16,8 +16,9 @@ Its functionnalities include making directories, downloading statements, downloa
 To run `init.py`, follow these steps:
 * Create a new folder.
 * Download `init.py` and put it into the folder.
-* Open `init.py` in a text editor and put your session into **USER_SESSION_ID** (see below).
-* Change other user parameters in the `init.py` as desired (see below).
+* Create a file called `session.txt` and put it into the same folder.
+* Put your session into `session.txt` (see below).
+* Open `init.py` in a text editor and change other user parameters as desired (see below).
 * Change the date of the last advent of code year and day if needed.
 * Run `init.py` from within the folder with
 ```shell
@@ -55,8 +56,7 @@ Other parameters are self explanatory.
   
 ## AOCUtil
 
-Before coding a solution, look over `aocutil.py` to see all the utility functions (and add your own). `aocutil` and many
-other useful packages are imported by the template.
+Before coding a solution, look over `aocutil.py` to see all the utility functions (and add your own). The template imports `aocutil` and many other useful functions.
 
 ## Running this repo code
 
