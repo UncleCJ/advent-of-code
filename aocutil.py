@@ -1,7 +1,7 @@
 from collections import defaultdict
 from collections.abc import MutableMapping
 from enum import Enum
-import itertools
+import itertools as it
 from multiset import Multiset
 import numpy as np
 import re
@@ -87,7 +87,7 @@ def last_index(sequence: Sequence[_T], e: _T) -> int:
 
 def flatten(iterable: Iterable[Iterable[_T]]) -> Iterable[_T]:
     """Flattens a one-layer deep list of lists"""
-    return list(itertools.chain.from_iterable(iterable))
+    return list(it.chain.from_iterable(iterable))
 
 
 def manhattan(coord1: tuple[int, ...], coord2: tuple[int, ...]) -> int:

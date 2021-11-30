@@ -59,8 +59,9 @@ import runner
 from aocutil import *
 from collections import *
 from copy import deepcopy
+from dataclasses import dataclass
 from functools import reduce
-from itertools import *
+import itertools as it
 from math import *
 from multiset import Multiset
 import numpy as np
