@@ -39,7 +39,7 @@ USER_AGENT = "adventofcode_working_directories_creator"
 with open("session.txt", "w+") as f:
     USER_SESSION_ID = f.read().strip()
 if USER_SESSION_ID == "":
-    print("Setup create working directories and files for adventofcode.")
+    print("Setup will create working directories and files for adventofcode.")
 else:
     print("Setup will download data and create working directories and files for adventofcode.")
 
