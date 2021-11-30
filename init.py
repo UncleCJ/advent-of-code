@@ -3,7 +3,7 @@
 # IMPORTANT Remember to edit the USER_SESSION_ID & author values with yours
 # uses requests module. If not present use pip install requests
 # Author = Alexe Simon, modified by tis
-# Date = 06/12/2018, modified 12/25/2020
+# Date = 06/12/2018, modified 12/25/2020 and later
 
 # USER SPECIFIC PARAMETERS
 base_pos = "./"            # Folders will be created here. If you want to make a parent folder, change this to ex "./adventofcode/"
@@ -16,7 +16,7 @@ author = "?"               # Name automatically put in the code templates.
 OVERWRITE = False          # If you really need to download the whole thing again, set this to true. As the creator said, AoC is fragile; please be gentle. Statements and Inputs do not change. This will not overwrite codes.
 
 # DATE SPECIFIC PARAMETERS
-date = "December 2020"               # Date automatically put in the code templates.
+date = "December 2021"               # Date automatically put in the code templates.
 starting_advent_of_code_year = 2021  # You can go as early as 2015.
 last_advent_of_code_year = 2021      # The setup will download all advent of code data up until that date included
 starting_advent_of_code_day = 1      # You can go as early as 1 and as late as 25
@@ -56,13 +56,14 @@ for y in years:
 # Author = {author}
 # Date = {date}
 import runner
-from aocutil import *
+import aocutil as aoc
+import bisect
 from collections import *
 from copy import deepcopy
 from dataclasses import dataclass
-from functools import reduce
+from functools import cache, lru_cache, reduce
 import itertools as it
-from math import *
+import math
 from multiset import Multiset
 import numpy as np
 import operator
