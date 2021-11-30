@@ -36,13 +36,8 @@ days = range(1,26)
 link = "https://adventofcode.com/" # ex use : https://adventofcode.com/2017/day/19/input
 USER_AGENT = "adventofcode_working_directories_creator"
 
-USER_SESSION_ID = ""
-if os.path.exists("session.txt"):
-    with open("session.txt", "r") as f:
-        USER_SESSION_ID = f.read().strip()
-else:
-    print("session.txt does not exist, skipping input download...")
-
+with open("session.txt", "w+") as f:
+    USER_SESSION_ID = f.read().strip()
 if USER_SESSION_ID == "":
     print("Setup create working directories and files for adventofcode.")
 else:
