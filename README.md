@@ -4,6 +4,8 @@ This is my modification of Simon's Advent of Code template, spiced up with solut
 an improved template, and many utility functions. Shoutouts to the r/python Discord for giving me template/utility
 function ideas and helping me through tough puzzles.
 
+Note that **Python 3.10** is required.
+
 ## Copying the template
 
 You can use `init.py`, `runner.py`, and `aocutil.py` if you want to copy this repo template and answer the problems by yourself. 
