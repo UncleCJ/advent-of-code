@@ -1,3 +1,4 @@
+# From https://github.com/AlexeSimon/adventofcode
 # Advent of code working directories creator
 # IMPORTANT Remember to edit the USER_SESSION_ID & author values with yours
 # uses requests module. If not present use pip install requests
@@ -23,7 +24,11 @@ last_advent_of_code_day = 25         # If the year isn't finished, the setup wil
 
 # Imports
 import os
-import requests
+import sys
+try:
+    import requests
+except ImportError:
+    sys.exit("You need requests module. Install it by running pip install requests.")
 
 # Code
 MAX_RECONNECT_ATTEMPT = 2
@@ -90,15 +95,10 @@ from code import *
 
 class TestAOC(unittest.TestCase):
 
-    def test_part_one(self):
-        example = \"\"\"\"\"\"
+    def test(self):
+        example = None
         answer = None
         self.assertEqual(answer, solve_part_one(example))
-
-    def test_part_two(self):
-        example = \"\"\"\"\"\"
-        answer = None
-        self.assertEqual(answer, solve_part_two(example))
 
 
 unittest.main()
@@ -107,7 +107,7 @@ unittest.main()
         if DOWNLOAD_INPUTS and (not os.path.exists(day_pos+"/input.txt") or OVERWRITE)and USER_SESSION_ID != "":
             done = False
             error_count = 0
-            while(not done):
+            while not done:
                 try:
                     with requests.get(url=link+str(y)+"/day/"+str(d)+"/input", cookies={"session": USER_SESSION_ID}, headers={"User-Agent": USER_AGENT}) as response:
                         if response.ok:
@@ -133,7 +133,7 @@ unittest.main()
         if DOWNLOAD_STATEMENTS and (not os.path.exists(day_pos+"/statement.html") or OVERWRITE):
             done = False
             error_count = 0
-            while(not done):
+            while not done:
                 try:
                     with requests.get(url=link+str(y)+"/day/"+str(d), cookies={"session": USER_SESSION_ID}, headers={"User-Agent": USER_AGENT}) as response:
                         if response.ok:

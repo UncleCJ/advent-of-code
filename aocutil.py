@@ -4,11 +4,12 @@ from collections.abc import MutableMapping
 from enum import Enum
 from multiset import Multiset
 import networkx as nx
+import numpy as np
 import re
 
 
 def guess_input(raw):
-    """Prints summary information about the input"""
+    """Prints summary information about input.txt"""
     lines = raw.splitlines()
     print(f"# lines: {len(lines)}")
     line_lengths = set(filter(lambda x: x > 0, [len(line) for line in lines]))
@@ -95,15 +96,13 @@ def manhattan_origin(*coords, dim=3):
     return dist, cardinals
 
 
-# Thanks salt-die
 def matching(items):
-    """I'm not sure what this does but I bet it's useful"""
     G = nx.from_dict_of_lists(items)
     return tuple((k, v) for k, v in nx.bipartite.maximum_matching(G, top_nodes=items).items() if k in items)
 
 
 class Direction(bytes, Enum):
-    """Direction helper class, 0 is up, increasing numbers rotate CW"""
+    """Direction helper class, 0 is up, CW"""
     def __new__(cls, value, cardinal):
         obj = bytes.__new__(cls)
         obj._value_ = value
@@ -116,11 +115,11 @@ class Direction(bytes, Enum):
 
     @staticmethod
     def from_standard(n):
-        """Convert from 0 is right, increasing numbers rotate CCW"""
+        """Convert from 0 is right, CCW"""
         return Direction((1 - n) % 4)
 
     def to_standard(self):
-        """Convert to 0 is right, increasing numbers rotate CCW"""
+        """Convert to 0 is right, CCW"""
         return (1 - self._value_) % 4
 
     @property
@@ -158,6 +157,34 @@ class Direction(bytes, Enum):
     def invert(self):
         """Get the opposite of this direction"""
         return self.rotate_cw(2)
+
+
+class Particle:
+    def __init__(self, dim, p=None, v=None, a=None):
+        self.dim = dim
+        self.p = np.zeros(dim) if p is None else p
+        self.v = np.zeros(dim) if v is None else v
+        self.a = np.zeros(dim) if a is None else a
+
+    @staticmethod
+    def from_existing(other):
+        return Particle(other.dim, other.p, other.v, other.a)
+
+    def __add__(self, other):
+        if self.dim != other.dim:
+            raise ValueError
+        return Particle(self.dim, self.p + other.p, self.v + other.v, self.a + other.a)
+
+    def __neg__(self):
+        return Particle(self.dim, -self.p, -self.v, -self.a)
+
+    def __str__(self):
+        return f"<Particle{self.dim}D p={self.p}, v={self.v}, a={self.a}>"
+
+    def tick(self, n=1):
+        for _ in range(n):
+            self.v += self.a
+            self.p += self.v
 
 
 class Multimap(MutableMapping):
