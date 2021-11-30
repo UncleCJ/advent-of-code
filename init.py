@@ -17,8 +17,8 @@ OVERWRITE = False          # If you really need to download the whole thing agai
 
 # DATE SPECIFIC PARAMETERS
 date = "December 2020"               # Date automatically put in the code templates.
-starting_advent_of_code_year = 2020  # You can go as early as 2015.
-last_advent_of_code_year = 2020      # The setup will download all advent of code data up until that date included
+starting_advent_of_code_year = 2021  # You can go as early as 2015.
+last_advent_of_code_year = 2021      # The setup will download all advent of code data up until that date included
 starting_advent_of_code_day = 1      # You can go as early as 1 and as late as 25
 last_advent_of_code_day = 25         # If the year isn't finished, the setup will download days up until that day included for the last year
 

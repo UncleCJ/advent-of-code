@@ -1,11 +1,11 @@
-import itertools
 from collections import defaultdict
 from collections.abc import MutableMapping
 from enum import Enum
+import itertools
 from multiset import Multiset
 import numpy as np
 import re
-from typing import Callable, Generic, Iterable, TypeVar
+from typing import Callable, Generic, Iterable, Sequence, TypeVar
 
 _T = TypeVar("_T")
 _K = TypeVar("_K")
@@ -75,6 +75,14 @@ def by_index(index: int) -> Callable[[tuple], any]:
 def invert_dict(dic: dict[_K, _V]) -> dict[_V, _K]:
     """Inverts a one-to-one dictionary"""
     return {v: k for k, v in dic.items()}
+
+
+def last_index(sequence: Sequence[_T], e: _T) -> int:
+    """Finds the last index of e in the sequence"""
+    for i, item in enumerate(reversed(sequence)):
+        if item == e:
+            return len(sequence) - i - 1
+    raise ValueError("e was not in the sequence")
 
 
 def flatten(iterable: Iterable[Iterable[_T]]) -> Iterable[_T]:
