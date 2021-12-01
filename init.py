@@ -77,7 +77,7 @@ import re
 
 
 def solve_part_one(data):
-    guess_input(data)
+    aoc.guess_input(data)
     lines = data.splitlines()
     for line in lines:
         pass
