@@ -10,6 +10,12 @@ Note that I do things like this repository more than I code - [professionally](h
 
 ## Changelog
 
+### 2021-12-01
+
+We are on again!
+
+This year I am so much more confident than I was in 2020 that I *can* complete the advent, and the challenge to myself is rather to improve my gut-feeling about programming structure and perhaps share the fun with others through this Notebook collection. Enjoy everyone, see you in cyberspace!
+
 ### 2021-11-05
 
 Getting back on polishing on this repository - for now only [2020 problems](https://github.com/UncleCJ/advent-of-code/tree/cj/2020), adding comments and improving style. Also glancing at similar repositories and track them, but I haven't found enough activity to merit enumerating yet. In the meantime I have been looking into [experimenting with pywikibot / Mediawiki API and network graphs](https://github.com/UncleCJ/pywikibot-gephi-experiments) - there are various inspiration between the projects, like learning more about Python and things like repo2docker. Much looking forward to December 1st and the opening of [this year's problems](https://adventofcode.com/2021/)!
