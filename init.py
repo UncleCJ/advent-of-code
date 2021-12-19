@@ -4,28 +4,37 @@
 # Author = Alexe Simon
 # Date = 06/12/2018
 
+import os
+import datetime
+import requests
+
 # USER SPECIFIC PARAMETERS
 base_pos = "./"            # Folders will be created here. If you want to make a parent folder, change this to ex "./adventofcode/"
-USER_SESSION_ID = ""       # Get your session by inspecting the session cookie content in your web browser while connected to adventofcode and paste it here as plain text in between the ". Leave at is to not download inputs.
+USER_SESSION_ID = "53616c7465645f5f1c49811d7ac9a8a0b9c0dfc644efc6641ed5de0335cd6d5e602eee4fa784b58f1056cfc6c14e34bc"       # Get your session by inspecting the session cookie content in your web browser while connected to adventofcode and paste it here as plain text in between the ". Leave at is to not download inputs.
 DOWNLOAD_STATEMENTS = True # Set to false to not download statements. Note that only part one is downloaded (since you need to complete it to access part two)
 DOWNLOAD_INPUTS = True     # Set to false to not download inputs. Note that if the USER_SESSION_ID is wrong or left empty, inputs will not be downloaded.
 MAKE_CODE_TEMPLATE = True  # Set to false to not make code templates. Note that even if OVERWRITE is set to True, it will never overwrite codes.
 MAKE_URL = True            # Set to false to not create a direct url link in the folder.
-author = "?"               # Name automatically put in the code templates.
+author = "Joao Antunes"  # Name automatically put in the code templates.
 OVERWRITE = False          # If you really need to download the whole thing again, set this to true. As the creator said, AoC is fragile; please be gentle. Statements and Inputs do not change. This will not overwrite codes.
+TEMPLATE = """
+import os, sys
+# Advent of code Year {year} Day {day} solution
+# Author = {author}
+# Date = {date}
+
+this_file_name = os.path.basename(sys.argv[0])
+filename = sys.argv[1] if len(sys.argv) > 1 else "input.txt"
+with open((__file__.rstrip(this_file_name) + filename), 'r') as input_file:
+    for line in input_file:
+        print(line)
+
+"""
 
 # DATE SPECIFIC PARAMETERS
-date = "December 2018"              # Date automatically put in the code templates.
-starting_advent_of_code_year = 2017 # You can go as early as 2015.
-last_advent_of_code_year = 2018     # The setup will download all advent of code data up until that date included
-last_advent_of_code_day = 7         # If the year isn't finished, the setup will download days up until that day included for the last year
-# Imports
-import os
-import datetime
-try:
-    import requests
-except ImportError:
-    sys.exit("You need requests module. Install it by running pip install requests.")
+date = "December 2021"              # Date automatically put in the code templates.
+starting_advent_of_code_year = 2021  # You can go as early as 2015.
+last_advent_of_code_year = 2021     # The setup will download all advent of code data up until that date included
 
 # Code
 MAX_RECONNECT_ATTEMPT = 2
@@ -37,24 +46,28 @@ USER_AGENT = "adventofcode_working_directories_creator"
 print("Setup will download data and create working directories and files for adventofcode.")
 if not os.path.exists(base_pos):
     os.mkdir(base_pos)
+quit = False
 for y in years:
     print("Year "+str(y))
     if not os.path.exists(base_pos+str(y)):
         os.mkdir(base_pos+str(y))
     year_pos = base_pos + str(y)
-    for d in (d for d in days if (y < last_advent_of_code_year or d <= last_advent_of_code_day)):
+    for d in days:
+        if quit:
+            break
         print("    Day "+str(d));
         if not os.path.exists(year_pos+"/"+str(d)):
             os.mkdir(year_pos+"/"+str(d))
         day_pos = year_pos+"/"+str(d)
         if MAKE_CODE_TEMPLATE and not os.path.exists(day_pos+"/code.py"):
             code = open(day_pos+"/code.py", "w+")
-            code.write("# Advent of code Year "+str(y)+" Day "+str(d)+" solution\n# Author = "+author+"\n# Date = "+date+"\n\nwith open((__file__.rstrip(\"code.py\")+\"input.txt\"), 'r') as input_file:\n    input = input_file.read()\n\n\n\nprint(\"Part One : \"+ str(None))\n\n\n\nprint(\"Part Two : \"+ str(None))")
+            code.write(TEMPLATE.format(author=author, year=y, day=d, date=date))
+            # code.write("# Advent of code Year "+str(y)+" Day "+str(d)+" solution\n# Author = "+author+"\n# Date = "+date+"\n\nwith open((__file__.rstrip(\"code.py\")+\"input.txt\"), 'r') as input_file:\n    input = input_file.read()\n\n\n\nprint(f\"Part One : {None}\")\n\n\n\nprint(f\"Part Two : {None}\")")
             code.close()
         if DOWNLOAD_INPUTS and (not os.path.exists(day_pos+"/input.txt") or OVERWRITE)and USER_SESSION_ID != "":
             done = False
             error_count = 0
-            while(not done):
+            while not done:
                 try:
                     with requests.get(url=link+str(y)+"/day/"+str(d)+"/input", cookies={"session": USER_SESSION_ID}, headers={"User-Agent": USER_AGENT}) as response:
                         if response.ok:
@@ -63,7 +76,9 @@ for y in years:
                             input.write(data.rstrip("\n"))
                             input.close()
                         else:
-                            print("        Server response for input is not valid.")
+                            print("        Server response for input is not valid. We probably reached the last day.")
+                            quit = True
+                            break
                     done = True
                 except requests.exceptions.RequestException:
                     error_count += 1
@@ -91,6 +106,10 @@ for y in years:
                             statement = open(day_pos+"/statement.html", "w+")
                             statement.write(html[start:max(end, end_success)])
                             statement.close()
+                        else:
+                            print("        Server response for input is not valid. We probably reached the last day.")
+                            quit = True
+                            break
                         done = True
                 except requests.exceptions.RequestException:
                     error_count += 1
