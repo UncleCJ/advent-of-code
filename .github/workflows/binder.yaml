@@ -11,7 +11,7 @@ jobs:
         ref: ${{ github.event.pull_request.head.sha }}
 
     - name: update jupyter dependencies with repo2docker
-      uses: jupyterhub/repo2docker-action@master
+      uses: jupyterhub/repo2docker-action@1835b83b93ae93043d30c85210766d957df68f3f
       with:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
