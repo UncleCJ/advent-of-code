@@ -6,12 +6,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v6
       with:
         ref: ${{ github.event.pull_request.head.sha }}
 
     - name: update jupyter dependencies with repo2docker
-      uses: jupyterhub/repo2docker-action@1835b83b93ae93043d30c85210766d957df68f3f
+      uses: jupyterhub/repo2docker-action@daa77f929833dcd836a711bc7837af945e9d27cc
       with:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
