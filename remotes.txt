@@ -1,0 +1,20 @@
+[remote "other-Matze"]
+	url = https://github.com/MatGerlach/advent-of-code
+--
+[remote "other-JonasJ-2023"]
+	url = https://github.com/PixelJuice/AdventOfCode2023
+--
+[remote "other-Arno-2023"]
+	url = https://github.com/f00ale/advent_of_code_2023
+--
+[remote "other-kodsnack"]
+	url = https://github.com/kodsnack/advent_of_code_2023
+--
+[remote "other-StefanN"]
+	url = https://github.com/itayo/AdventOfCode
+--
+[remote "other-Arno-2024-2025"]
+	url = https://github.com/f00ale/advent-of-code.git
+--
+[remote "other-JonasJ-2022"]
+	url = https://github.com/PixelJuice/AdventOfCode2022.git
