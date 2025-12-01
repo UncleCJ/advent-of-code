@@ -18,3 +18,21 @@
 --
 [remote "other-JonasJ-2022"]
 	url = https://github.com/PixelJuice/AdventOfCode2022.git
+--
+[remote "pythontemplate-AlexeSimon"]
+	url = https://github.com/AlexeSimon/adventofcode.git
+--
+[remote "other-awesome-advent-of-code"]
+	url = https://github.com/Bogdanp/awesome-advent-of-code.git
+--
+[remote "pythontemplate-Pit-Storm"]
+	url = https://github.com/Pit-Storm/adventofcode.git
+--
+[remote "pythontemplate-jasantunes"]
+	url = https://github.com/jasantunes/adventofcode.git
+--
+[remote "pythontemplate-Tisawesomeness-2019"]
+	url = https://github.com/Tisawesomeness/AdventOfCode2019.git
+--
+[remote "pythontemplate-Tisawesomeness"]
+	url = https://github.com/Tisawesomeness/AdventOfCodeTemplate.git
